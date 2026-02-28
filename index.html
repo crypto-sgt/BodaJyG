@@ -7,10 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
+        /* Forzamos que los colores se mantengan ignorando el modo oscuro del sistema */
+        :root {
+            color-scheme: light;
+        }
+        
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #fdfbf7;
-            color: #4a4a4a;
+            background-color: #fdfbf7 !important;
+            color: #4a4a4a !important;
         }
         .font-serif-elegant { font-family: 'Cinzel', serif; }
         .font-script { font-family: 'Great Vibes', cursive; }
@@ -22,8 +27,8 @@
             background-position: center;
         }
 
-        .gold-accent { color: #a0875a; }
-        .gold-bg { background-color: #a0875a; }
+        .gold-accent { color: #a0875a !important; }
+        .gold-bg { background-color: #a0875a !important; }
         
         .fade-in {
             animation: fadeIn 2s ease-in;
@@ -37,10 +42,19 @@
         .btn-interact {
             transition: all 0.3s ease;
             border: 1px solid #a0875a;
+            color: #a0875a;
         }
         .btn-interact:hover {
             background-color: #a0875a;
-            color: white;
+            color: white !important;
+        }
+
+        /* Prevención extra para modo oscuro forzado en algunos navegadores */
+        @media (prefers-color-scheme: dark) {
+            body { background-color: #fdfbf7 !important; color: #4a4a4a !important; }
+            section { background-color: inherit !important; }
+            .bg-white { background-color: #ffffff !important; }
+            .bg-\[\#f9f6f0\] { background-color: #f9f6f0 !important; }
         }
     </style>
 </head>
@@ -58,20 +72,22 @@
         </div>
     </section>
 
-    <!-- Sección de Reflexión Completa -->
+    <!-- Sección de Reflexión Actualizada -->
     <section class="py-24 px-8 bg-white text-center">
         <div class="max-w-2xl mx-auto">
             <div class="gold-accent mb-8">
                 <svg class="w-8 h-8 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
             </div>
             <div class="italic leading-relaxed text-lg opacity-90 space-y-6">
-                <p>Señor, ayúdanos a recordar el momento en que nos conocimos, así como el profundo amor que fue creciendo entre nosotros.</p>
+                <p>Señor, te pedimos que mantengas vivo el recuerdo del día en que nos conocimos y de aquel amor profundo que nació entre los dos.</p>
                 
-                <p>Te pedimos Dios todopoderoso, que con tus sagradas manos nos des tu bendición; que aprendamos a escucharnos, comunicarnos sobre todo comprendernos, para caminar siempre con fe y amor.</p>
+                <p>Danos la sabiduría para usar siempre palabras llenas de bondad y mantén nuestros corazones dispuestos al perdón mutuo. Padre, dejamos nuestra unión bajo Tu cuidado y te suplicamos Dios Todopoderoso, que nos bendigas con Tus sagradas manos.</p>
                 
-                <p>Ponemos nuestro matrimonio en tus manos.</p>
+                <p>Ayúdanos a escucharnos con paciencia, a comunicarnos con claridad y a caminar siempre unidos en la fe.</p>
                 
-                <p class="font-bold not-italic mt-6 gold-accent text-2xl font-serif-elegant">Amén</p>
+                <p>Juntos y tomados de la mano, ponemos nuestro matrimonio ante Ti.</p>
+                
+                <p class="font-bold not-italic mt-6 gold-accent text-2xl font-serif-elegant uppercase tracking-widest">Amén</p>
             </div>
         </div>
     </section>
@@ -79,29 +95,43 @@
     <!-- Sección de Detalles de la Boda -->
     <section class="py-16 px-6 bg-[#f9f6f0]">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="uppercase tracking-widest text-xs mb-2">Con la bendición de Dios y de nuestros padres</p>
-                <div class="grid md:grid-cols-2 gap-4 text-sm opacity-80">
-                    <p>Francisco Sabán<br>Isabel Cortez Ramirez de Sabán</p>
-                    <p>Tomas Osorio Gregorio<br>Juana Zapeta Herrera de Osorio</p>
+            <div class="text-center mb-10">
+                <p class="uppercase tracking-widest text-[10px] mb-4 opacity-60">Con la bendición de Dios y de nuestros padres</p>
+                <div class="grid md:grid-cols-2 gap-6 text-sm font-medium mb-12">
+                    <div>
+                        <p class="gold-accent uppercase text-[11px] mb-1">Padres de la Novia</p>
+                        <p>Francisco Sabán<br>Isabel Cortez Ramirez de Sabán</p>
+                    </div>
+                    <div>
+                        <p class="gold-accent uppercase text-[11px] mb-1">Padres del Novio</p>
+                        <p>Tomas Osorio Gregorio<br>Juana Zapeta Herrera de Osorio</p>
+                    </div>
+                </div>
+
+                <!-- Re-introducción de los novios con frase de invitación sugerida -->
+                <div class="py-8">
+                    <h2 class="font-script text-6xl gold-accent mb-4">Josué & Guadalupe</h2>
+                    <p class="max-w-xl mx-auto text-sm leading-loose tracking-wide italic opacity-80">
+                        "En el amor no hay distancias, y con la bendición del Creador, iniciamos un nuevo camino. Tenemos el honor de invitarles a ser testigos de nuestra promesa de amor eterno."
+                    </p>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 text-center">
+            <div class="grid md:grid-cols-2 gap-12 text-center mt-8">
                 <!-- Ceremonia -->
                 <div class="p-8 bg-white rounded-lg shadow-sm border-t-4 border-[#a0875a]">
                     <h3 class="font-serif-elegant text-2xl mb-4 gold-accent">Santa Eucaristía</h3>
-                    <p class="mb-2 font-bold uppercase text-xs tracking-widest">Capilla Nuestra Señora de Fátima</p>
+                    <p class="mb-2 font-bold uppercase text-[11px] tracking-widest">Capilla Nuestra Señora de Fátima</p>
                     <p class="text-sm mb-6">Sábado 25 de Abril • 15:45 hrs<br>3a. Calle 6-58 zona 1, Lomas de Portugal, Mixco</p>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Capilla+Nuestra+Señora+de+Fátima+Mixco" target="_blank" class="inline-block px-8 py-3 btn-interact rounded-full text-xs uppercase tracking-widest font-bold">Ver Mapa de la Iglesia</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Capilla+Nuestra+Señora+de+Fátima+Mixco" target="_blank" class="inline-block px-8 py-3 btn-interact rounded-full text-[10px] uppercase tracking-widest font-bold">Ubicación de la Iglesia</a>
                 </div>
 
                 <!-- Recepción -->
                 <div class="p-8 bg-white rounded-lg shadow-sm border-t-4 border-[#a0875a]">
                     <h3 class="font-serif-elegant text-2xl mb-4 gold-accent">Recepción</h3>
-                    <p class="mb-2 font-bold uppercase text-xs tracking-widest">Celebración de Unión</p>
-                    <p class="text-sm mb-6">Posterior a la ceremonia religiosa<br>Salón El Mirador, Ciudad de Guatemala</p>
-                    <a href="https://www.google.com/maps" target="_blank" class="inline-block px-8 py-3 btn-interact rounded-full text-xs uppercase tracking-widest font-bold">Ver Mapa de la Recepción</a>
+                    <p class="mb-2 font-bold uppercase text-[11px] tracking-widest">Celebración</p>
+                    <p class="text-sm mb-6">Al finalizar la ceremonia religiosa<br>Salón El Mirador, Ciudad de Guatemala</p>
+                    <a href="https://www.google.com/maps" target="_blank" class="inline-block px-8 py-3 btn-interact rounded-full text-[10px] uppercase tracking-widest font-bold">Ubicación del Salón</a>
                 </div>
             </div>
         </div>
@@ -110,10 +140,9 @@
     <!-- Sección de Confirmación -->
     <section class="py-24 px-6 text-center bg-white">
         <h2 class="font-serif-elegant text-3xl mb-4">¿Nos acompañas?</h2>
-        <p class="mb-10 opacity-70 max-w-md mx-auto">Tu presencia en este día tan importante para nosotros será nuestro regalo más preciado.</p>
+        <p class="mb-10 opacity-70 max-w-md mx-auto text-sm">Agradeceríamos confirmar su asistencia antes del 10 de abril para compartir este momento inolvidable.</p>
         
-        <!-- Reemplaza el número 50200000000 con el número de los novios -->
-        <a href="https://wa.me/50200000000?text=Hola!%20Confirmo%20con%20mucha%20alegría%20mi%20asistencia%20a%20la%20boda%20de%20Josué%20y%20Guadalupe" class="inline-block bg-[#25D366] text-white px-12 py-4 rounded-full font-bold shadow-xl transform hover:scale-105 transition-all flex items-center justify-center max-w-xs mx-auto">
+        <a href="https://wa.me/50200000000?text=¡Hola!%20Confirmo%20con%20mucha%20alegría%20mi%20asistencia%20a%20la%20boda%20de%20Josué%20y%20Guadalupe" class="inline-block bg-[#25D366] text-white px-12 py-4 rounded-full font-bold shadow-xl transform hover:scale-105 transition-all flex items-center justify-center max-w-xs mx-auto">
             <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.992-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.516.893 3.135 1.364 4.794 1.365 5.178 0 9.389-4.211 9.392-9.389.001-2.509-.976-4.868-2.753-6.644-1.777-1.777-4.137-2.754-6.644-2.754-5.18 0-9.392 4.212-9.394 9.391-.001 1.777.472 3.511 1.367 5.035l-1.031 3.763 3.861-1.012z"/></svg>
             Confirmar Asistencia
         </a>
@@ -121,7 +150,7 @@
 
     <footer class="py-12 bg-[#fdfbf7] text-center border-t border-gray-100">
         <p class="font-serif-elegant tracking-[0.3em] gold-accent">J & G</p>
-        <p class="text-[10px] uppercase tracking-widest opacity-40 mt-2">25 • 04 • 2026</p>
+        <p class="text-[10px] uppercase tracking-widest opacity-40 mt-2">Guatemala • 2026</p>
     </footer>
 
 </body>
