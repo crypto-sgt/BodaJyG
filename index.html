@@ -50,6 +50,35 @@
             color: white !important;
         }
 
+        /* Estilo para el botón de música flotante */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #a0875a;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(160, 135, 90, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .music-playing {
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(160, 135, 90, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(160, 135, 90, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(160, 135, 90, 0); }
+        }
+
         @media (prefers-color-scheme: dark) {
             body { background-color: #fdfbf7 !important; color: #4a4a4a !important; }
             section { background-color: inherit !important; }
@@ -59,6 +88,17 @@
     </style>
 </head>
 <body class="overflow-x-hidden">
+
+    <!-- Control de Música -->
+    <button id="music-control" onclick="toggleMusic()" aria-label="Control de música">
+        <svg id="music-icon" class="w-6 h-6 gold-accent" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+        <audio id="wedding-music" loop>
+            <!-- Audio elegante de piano como ejemplo -->
+            <source src="https://www.chosic.com/wp-content/uploads/2021/04/And-So-It-Begins-Inspired-By-Crush-By-Yiruma.mp3" type="audio/mpeg">
+        </audio>
+    </button>
 
     <!-- Sección de Portada -->
     <section class="min-h-screen flex flex-col justify-center items-center text-center p-6 hero-gradient">
@@ -133,6 +173,26 @@
         <p class="font-serif-elegant tracking-[0.3em] gold-accent text-2xl">J <span class="font-ampersand">&</span> G</p>
         <p class="text-[10px] uppercase tracking-widest opacity-40 mt-4">Guatemala • 2026</p>
     </footer>
+
+    <script>
+        function toggleMusic() {
+            const audio = document.getElementById('wedding-music');
+            const control = document.getElementById('music-control');
+            const icon = document.getElementById('music-icon');
+            
+            if (audio.paused) {
+                audio.play();
+                control.classList.add('music-playing');
+                // Cambiamos el icono a uno de "pausa"
+                icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            } else {
+                audio.pause();
+                control.classList.remove('music-playing');
+                // Volvemos al icono de "nota musical"
+                icon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+            }
+        }
+    </script>
 
 </body>
 </html>
