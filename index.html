@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis 15 Años - Yehimi Dayana Zapón Sabán</title>
+    <title>Mis 15 Años - Yehimy Dayana Zapón Sabán</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -108,7 +108,7 @@
 
             <div>
                 <label class="block font-semibold mb-1 text-purple-950">Nombre de la Festejada</label>
-                <input type="text" id="edit-name" value="Yehimi Dayana Zapón Sabán" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                <input type="text" id="edit-name" value="Yehimy Dayana Zapón Sabán" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
             </div>
 
             <div class="grid grid-cols-2 gap-2">
@@ -167,7 +167,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold mb-1 text-purple-950">Mensaje predeterminado de Confirmación</label>
-                    <textarea id="edit-whatsapp-msg" rows="3" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-xs">¡Hola! Deseo confirmar mi asistencia a los hermosos quince años de Yehimi Dayana el próximo 27 de junio de 2026. ¡Allí estaremos con mucha alegría!</textarea>
+                    <textarea id="edit-whatsapp-msg" rows="3" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-xs">¡Hola! Deseo confirmar mi asistencia a los hermosos quince años de Yehimy Dayana el próximo 27 de junio de 2026. ¡Allí estaremos con mucha alegría!</textarea>
                 </div>
             </div>
 
@@ -269,58 +269,23 @@
                 </div>
             </div> -->
 
-             <!-- ILUSTRACIÓN DE LA QUINCEAÑERA (Elegante diseño vectorial SVG de un vestido de gala y tiara) -->
             <div class="my-6 flex justify-center fade-in relative z-20 quince-illustration" style="animation-delay: 0.5s;">
-                <div class="relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center">
+                <div class="relative w-48 h-68 md:w-56 md:h-72 flex items-center justify-center">
                     <!-- Destello Circular Lila de Fondo -->
-                    <div class="absolute w-36 h-36 md:w-44 md:h-44 bg-purple-200/30 rounded-full blur-2xl"></div>
-                    <!-- Silueta Elegante del Vestido de Quinceañera y Mariposas -->
-                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                        <defs>
-                            <linearGradient id="lilaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#c084fc" /> <!-- purple-400 -->
-                                <stop offset="100%" stop-color="#701a75" /> <!-- fuchsia-900 -->
-                            </linearGradient>
-                            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#fef08a" /> <!-- yellow-200 -->
-                                <stop offset="50%" stop-color="#ca8a04" /> <!-- yellow-650 -->
-                                <stop offset="100%" stop-color="#eab308" /> <!-- yellow-500 -->
-                            </linearGradient>
-                        </defs>
-                        <!-- Pequeñas Mariposas que revolotean alrededor -->
-                        <path d="M 12,25 C 10,22 14,20 15,22 C 16,20 20,22 18,25 C 16,27 14,26 12,25 Z" fill="url(#lilaGrad)" opacity="0.8" transform="rotate(-15, 15, 25)" />
-                        <path d="M 85,35 C 83,32 87,30 88,32 C 89,30 93,32 91,35 C 89,37 87,36 85,35 Z" fill="url(#goldGrad)" opacity="0.9" transform="rotate(20, 88, 32)" />
-                        
-                        <!-- Tiara/Corona Fina de Princesa -->
-                        <path d="M 44,21 L 47,16 L 50,13 L 53,16 L 56,21 Q 50,19 44,21 Z" fill="url(#goldGrad)" />
-                        <circle cx="50" cy="11.5" r="1.2" fill="#ca8a04" />
-                        <circle cx="47" cy="14.5" r="0.8" fill="#ca8a04" />
-                        <circle cx="53" cy="14.5" r="0.8" fill="#ca8a04" />
+                    <div class="absolute w-44 h-44 bg-purple-200/30 rounded-full blur-2xl"></div>
+                    
+                    <!-- Portarretrato en Arco de Medio Punto con Doble Borde Dorado Fino -->
+                    <div class="w-full h-full rounded-t-full border-4 border-double border-[#dfb36c] overflow-hidden shadow-2xl bg-purple-50/50 relative z-10 transition-transform hover:scale-105 duration-300">
+                        <img id="disp-photo" src="https://i.pinimg.com/474x/cd/02/7b/cd027bc7946ae003019cb0d409cc1e3f.jpg" alt="Yehimy Dayana Zapón Sabán" class="w-full h-full object-cover">
+                    </div>
 
-                        <!-- Torso/Silueta Elegante del Vestido superior -->
-                        <path d="M 47,23 Q 50,21 53,23 L 52,35 Q 50,37 48,35 Z" fill="url(#lilaGrad)" />
-                        <!-- Cinturón Dorado con Brillo -->
-                        <path d="M 48,35 Q 50,36 52,35 L 52,37 Q 50,38 48,37 Z" fill="url(#goldGrad)" />
-                        
-                        <!-- Falda Pomposa del Vestido de Gala (Diseño detallado de pétalos florales) -->
-                        <path d="M 48,36 
-                                 C 35,42 22,58 18,78 
-                                 C 26,88 40,92 50,92 
-                                 C 60,92 74,88 82,78 
-                                 C 78,58 65,42 52,36 
-                                 Z" fill="url(#lilaGrad)" />
-                        
-                        <!-- Capas/Pliegues interiores del Vestido para dar profundidad -->
-                        <path d="M 50,37 Q 40,60 28,83 Q 50,90 50,92 Z" fill="#9333ea" opacity="0.15" />
-                        <path d="M 50,37 Q 60,60 72,83 Q 50,90 50,92 Z" fill="#701a75" opacity="0.25" />
-                        
-                        <!-- Encaje de Pétalos en el borde inferior del vestido -->
-                        <path d="M 18,78 Q 23,83 28,81 Q 33,85 38,83 Q 44,86 50,84 Q 56,86 62,83 Q 67,85 72,81 Q 77,83 82,78" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" />
-                        
-                        <!-- Destellos mágicos dorados (Brillos) -->
-                        <polygon points="25,50 27,53 30,54 27,55 26,58 24,55 21,54 24,53" fill="url(#goldGrad)" />
-                        <polygon points="75,60 76.5,62 79,63 76.5,64 76,67 74.5,64 72,63 74.5,62" fill="url(#goldGrad)" />
-                    </svg>
+                    <!-- Brillos dorados flotantes alrededor del arco -->
+                    <div class="absolute -top-3 -left-3 text-[#dfb36c] animate-pulse">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div class="absolute -bottom-3 -right-3 text-[#dfb36c] animate-pulse" style="animation-delay: 1s;">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
                 </div>
             </div>
 
@@ -373,7 +338,7 @@
                     </div>
                     
                     <h1 id="disp-name" class="font-serif-elegant italic text-4xl md:text-6xl text-purple-950 font-bold tracking-normal py-2 leading-tight relative z-10">
-                        Yehimi Dayana Zapón Sabán
+                        Yehimy Dayana Zapón Sabán
                     </h1>
                 </div>
 
@@ -463,7 +428,7 @@
                 <p id="disp-thanks" class="text-gray-600 leading-relaxed text-sm md:text-base font-light italic">
                     Hoy celebro la maravillosa gracia de Dios que me ha guiado hasta este día tan especial. Agradezco de todo corazón a mis queridos padres por su inmenso amor, apoyo y entrega, y a todos ustedes, familia y amigos, por ser parte de mi vida y acompañarme en este camino. Su presencia es el mejor regalo.
                 </p>
-                <p class="font-cursive text-4xl text-purple-700 mt-6 font-semibold" id="disp-signature">Yehimi Dayana</p>
+                <p class="font-cursive text-4xl text-purple-700 mt-6 font-semibold" id="disp-signature">Yehimy Dayana</p>
             </div>
 
             <!-- SECCIÓN 6: CONFIRMACIÓN VÍA WHATSAPP (Totalmente rediseñada) -->
@@ -489,7 +454,7 @@
 
         <!-- Footer discreto -->
         <p class="mt-8 text-center text-xs text-purple-600/70 font-light">
-            Hecho con amor para Yehimi Dayana Zapón Sabán &copy; 2026. Todos los derechos reservados.
+            Hecho con amor para Yehimy Dayana Zapón Sabán &copy; 2026. Todos los derechos reservados.
         </p>
 
     </div>
@@ -611,7 +576,7 @@
 
         // Valores originales por defecto
         const defaults = {
-            name: "Yehimi Dayana Zapón Sabán",
+            name: "Yehimy Dayana Zapón Sabán",
             mother: "Silvia Sabán",
             father: "Mardoqueo Zapón",
             bibleVerse: `"Él ha hecho todo hermoso a su tiempo; y ha puesto eternidad en el corazón de ellos, sin que alcance el hombre a entender la obra que ha hecho Dios desde el principio hasta el fin."`,
@@ -621,7 +586,7 @@
             location: "Finca El bosquecito",
             audioUrl: "cancionn1.mp3",
             whatsappPhone: "50252712464",
-            whatsappMsg: "¡Hola! Deseo confirmar mi asistencia a los hermosos quince años de Yehimi Dayana el próximo 27 de junio de 2026. ¡Allí estaremos con mucha alegría!",
+            whatsappMsg: "¡Hola! Deseo confirmar mi asistencia a los hermosos quince años de Yehimy Dayana el próximo 27 de junio de 2026. ¡Allí estaremos con mucha alegría!",
             thanks: "Hoy celebro la maravillosa gracia de Dios que me ha guiado hasta este día tan especial. Agradezco de todo corazón a mis queridos padres por su inmenso amor, apoyo y entrega, y a todos ustedes, familia y amigos, por ser parte de mi vida y acompañarme en este camino. Su presencia es el mejor regalo."
         };
 
