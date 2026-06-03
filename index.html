@@ -571,7 +571,7 @@
         const elLocation = document.getElementById('disp-location');
         const elThanks = document.getElementById('disp-thanks');
         const elSignature = document.getElementById('disp-signature');
-        const elMonogram = document.getElementById('monogram');
+        //const elMonogram = document.getElementById('monogram');
         const btnWhatsappConfirm = document.getElementById('btn-whatsapp-confirm');
 
         // Valores originales por defecto
@@ -616,7 +616,7 @@
             
             // Iniciales del monograma
             const initials = name.split(" ").filter(n => n.length > 0).slice(0, 2).map(n => n[0].toUpperCase()).join("");
-            elMonogram.textContent = initials || "YD";
+            //elMonogram.textContent = initials || "YD";
 
             // Padres
             elMother.textContent = inMother.value.trim() || "Madre";
