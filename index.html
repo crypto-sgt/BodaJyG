@@ -3,176 +3,709 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda Civil - Josué & Guadalupe</title>
+    <title>Mis 15 Años - Yehimi Dayana Zapón Sabán</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&family=Great+Vibes&family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { color-scheme: light; }
-        
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #fdfbf7 !important;
-            color: #4a4a4a !important;
+            background-color: #f5effa;
+            background-image: radial-gradient(#eadaf7 1px, transparent 1px);
+            background-size: 24px 24px;
         }
-        .font-serif-elegant { font-family: 'Cinzel', serif; }
-        .font-script { font-family: 'Great Vibes', cursive; }
-        .font-ampersand { font-family: 'Playfair Display', serif; font-style: italic; }
-        
-        .hero-gradient {
-            background: linear-gradient(rgba(253, 251, 247, 0.7), rgba(253, 251, 247, 0.7)),
-                        url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover;
-            background-position: center;
+        .font-serif-elegant {
+            font-family: 'Playfair Display', serif;
         }
-
-        .gold-accent { color: #a0875a !important; }
-        
-        .fade-in { animation: fadeIn 2s ease-in; }
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Animaciones personalizadas */
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .btn-interact {
-            transition: all 0.3s ease;
-            border: 1px solid #a0875a;
-            color: #a0875a;
+        /* Efecto de brillo dorado */
+        .gold-border {
+            border: 2px solid #dfb36c;
+            box-shadow: 0 0 15px rgba(223, 179, 108, 0.3);
         }
-        .btn-interact:hover {
-            background-color: #a0875a;
-            color: white !important;
+        .gold-text {
+            color: #c59b27;
+            background: linear-gradient(to right, #b8860b, #e6ca65, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        #music-control {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 1000;
-            background: white;
-            border: 2px solid #a0875a;
-            border-radius: 50%;
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(160, 135, 90, 0.3);
-            cursor: pointer;
+        /* Animación suave para el botón de confirmación */
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3); }
+            50% { transform: scale(1.03); box-shadow: 0 4px 25px rgba(147, 51, 234, 0.5); }
         }
-        
-        .music-playing { animation: pulse-gold 2s infinite; }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(160, 135, 90, 0.5); }
-            70% { box-shadow: 0 0 0 15px rgba(160, 135, 90, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(160, 135, 90, 0); }
+        .btn-pulse {
+            animation: pulse-gentle 2.5s infinite ease-in-out;
         }
+        /* Rotación suave para los lirios decorativos */
+        /* .lily-float {
+            transition: transform 0.5s ease;
+        }
+        .lily-float:hover {
+            transform: scale(1.05) rotate(2deg);
+        } */
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden min-h-screen relative selection:bg-purple-200">
 
-    <!-- Control de Música -->
-    <button id="music-control" onclick="toggleMusic()" aria-label="Control de música">
-        <svg id="music-icon" class="w-6 h-6 gold-accent" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-        </svg>
-        <audio id="wedding-music" loop preload="auto">
-            <source src="https://www.mfiles.co.uk/mp3-downloads/pachelbel-canon-in-d.mp3" type="audio/mpeg">
+    <!-- Efecto de Pétalos Lila Cayendo (Canvas) -->
+    <canvas id="petals-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-40"></canvas>
+
+    <!-- Reproductor de Música Flotante con melodía romántica -->
+    <div class="fixed bottom-6 right-6 z-50 bg-white/95 backdrop-blur-md p-3 rounded-full shadow-lg border border-purple-200 flex items-center gap-3 transition-all hover:scale-105">
+        <audio id="bg-music" loop>
+            <!-- Melodía hermosa de piano instrumental dulce y sentimental (Lullaby/Emotional Theme) -->
+            <source id="audio-source" src="cancionn1.mp3" type="audio/mpeg">
         </audio>
-    </button>
+        <button id="btn-music" class="w-10 h-10 bg-purple-600 hover:bg-purple-700 text-white rounded-full flex items-center justify-center transition-colors">
+            <i data-lucide="play" class="w-5 h-5 ml-0.5" id="icon-play"></i>
+            <i data-lucide="pause" class="w-5 h-5 hidden" id="icon-pause"></i>
+        </button>
+        <div class="flex flex-col pr-2 text-left hidden md:flex">
+            <span class="text-[10px] text-gray-400 font-semibold tracking-wider uppercase">Melodía Quinceañera</span>
+            <span id="playing-track-name" class="text-xs font-bold text-purple-800">No Crezcas Más (Ambientación)</span>
+        </div>
+    </div>
 
-    <!-- Sección de Portada -->
-    <section class="min-h-screen flex flex-col justify-center items-center text-center p-6 hero-gradient">
-        <div class="fade-in">
-            <h2 class="font-serif-elegant tracking-widest text-sm uppercase mb-4">Nuestra Boda Civil</h2>
-            <h1 class="font-script text-7xl md:text-9xl gold-accent mb-6">
-                Josué <span class="font-ampersand text-5xl md:text-7xl align-middle mx-2">&</span> Guadalupe
-            </h1>
-            <div class="mt-12 animate-bounce">
-                <p class="text-[10px] tracking-[0.2em] uppercase opacity-60">Desliza para ver los detalles</p>
+    <!-- Botón para abrir el Panel de Edición Rápida -->
+   <!--  <div class="fixed top-6 left-6 z-50">
+        <button id="btn-toggle-editor" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full shadow-lg flex items-center gap-2 transition-transform hover:scale-110">
+            <i data-lucide="settings" class="w-5 h-5"></i>
+            <span class="text-xs font-semibold hidden md:inline">Personalizar Datos</span>
+        </button>
+    </div> -->
+
+    <!-- PANEL LATERAL DE EDICIÓN -->
+    <div id="editor-panel" class="fixed top-0 left-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 overflow-y-auto border-r border-purple-100 p-6">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-purple-100">
+            <h2 class="text-xl font-bold text-purple-900 flex items-center gap-2">
+                <i data-lucide="edit-3" class="w-5 h-5 text-purple-600"></i> Editor de Invitación
+            </h2>
+            <button id="btn-close-editor" class="text-gray-500 hover:text-purple-600 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <div class="space-y-4 text-sm text-gray-700">
+            <p class="text-xs text-gray-500 bg-purple-50 p-2.5 rounded-lg border border-purple-100">
+                Modifica cualquiera de los datos y observa cómo se actualiza la invitación en tiempo real de forma mágica.
+            </p>
+
+            <div>
+                <label class="block font-semibold mb-1 text-purple-950">Nombre de la Festejada</label>
+                <input type="text" id="edit-name" value="Yehimi Dayana Zapón Sabán" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
             </div>
-        </div>
-    </section>
 
-    <!-- Sección de Frase -->
-    <section class="py-20 px-8 bg-white text-center">
-        <div class="max-w-2xl mx-auto italic font-serif-elegant text-xl opacity-90 leading-relaxed">
-            <p>"Dos vidas, dos corazones, unidos en una sola promesa ante la ley y el amor."</p>
-        </div>
-    </section>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block font-semibold mb-1 text-purple-950">Madre</label>
+                    <input type="text" id="edit-mother" value="Silvia Sabán" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1 text-purple-950">Padre</label>
+                    <input type="text" id="edit-father" value="Mardoqueo Zapón" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                </div>
+            </div>
 
-    <!-- Sección de Padres y Detalles -->
-    <section class="py-16 px-6 bg-[#f9f6f0]">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="uppercase tracking-widest text-[10px] mb-8 opacity-60">Con la alegría de nuestras familias</p>
+            <div>
+                <label class="block font-semibold mb-1 text-purple-950">Versículo Bíblico</label>
+                <textarea id="edit-bible-verse" rows="3" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">"Él ha hecho todo hermoso a su tiempo; y ha puesto eternidad en el corazón de ellos, sin que alcance el hombre a entender la obra que ha hecho Dios desde el principio hasta el fin."</textarea>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-1 text-purple-950">Cita de la Biblia</label>
+                <input type="text" id="edit-bible-ref" value="Eclesiastés 3:11" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block font-semibold mb-1 text-purple-950">Fecha</label>
+                    <input type="date" id="edit-date" value="2026-06-27" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1 text-purple-950">Hora</label>
+                    <input type="time" id="edit-time" value="14:45" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-1 text-purple-950">Lugar de Recepción</label>
+                <input type="text" id="edit-location" value="Finca El bosquecito" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+            </div>
+
+            <!-- ENLACE DE MP3 PERSONALIZABLE -->
+            <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
+                <span class="text-xs font-bold text-amber-900 block uppercase tracking-wider flex items-center gap-1">
+                    <i data-lucide="music" class="w-4 h-4 text-amber-600"></i> ¿Quieres cambiar la canción?
+                </span>
+                <p class="text-[11px] text-amber-800">
+                    Pega un enlace directo de audio MP3 (por ejemplo, alojado en tu Google Drive público, Dropbox o servidor web) de <i>"No Crezcas Más"</i>.
+                </p>
+                <input type="text" id="edit-audio-url" value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" placeholder="https://ejemplo.com/cancion.mp3" class="w-full p-2 border border-amber-300 rounded-lg focus:outline-none text-xs">
+            </div>
+
+            <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 space-y-3">
+                <span class="text-xs font-bold text-purple-900 block uppercase tracking-wider">Configurar Botón WhatsApp</span>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-purple-950">Número WhatsApp (Código de País incluido)</label>
+                    <input type="text" id="edit-whatsapp-phone" value="50252712464" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-purple-950">Mensaje predeterminado de Confirmación</label>
+                    <textarea id="edit-whatsapp-msg" rows="3" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-xs">¡Hola! Deseo confirmar mi asistencia a los hermosos quince años de Yehimi Dayana el próximo 27 de junio de 2026. ¡Allí estaremos con mucha alegría!</textarea>
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-1 text-purple-950">Mensaje de Agradecimiento</label>
+                <textarea id="edit-thanks" rows="4" class="w-full p-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">Hoy celebro la maravillosa gracia de Dios que me ha guiado hasta este día tan especial. Agradezco de todo corazón a mis queridos padres por su inmenso amor, apoyo y entrega, y a todos ustedes, familia y amigos, por ser parte de mi vida y acompañarme en este camino. Su presencia es el mejor regalo.</textarea>
+            </div>
             
-            <div class="grid md:grid-cols-2 gap-8 text-sm mb-16">
-                <div>
-                    <p class="gold-accent uppercase text-[11px] mb-2 font-bold tracking-widest">Padres de la Novia</p>
-                    <p class="leading-relaxed">Tomas Osorio Gregorio<br>Juana Zapeta Herrera de Osorio</p>
-                </div>
-                <div>
-                    <p class="gold-accent uppercase text-[11px] mb-2 font-bold tracking-widest">Padres del Novio</p>
-                    <p class="leading-relaxed">Francisco Sabán<br>Isabel Cortez Ramirez de Sabán</p>
-                </div>
-            </div>
-
-            <div class="mb-12">
-                <p class="max-w-xl mx-auto text-sm leading-loose tracking-wide italic opacity-80">
-                    "Tenemos el honor de invitarles a ser testigos del inicio de nuestra vida juntos y compartir la alegría de nuestra unión legal."
-                </p>
-            </div>
-
-            <div class="p-10 bg-white rounded-lg shadow-sm border-t-4 border-[#a0875a] max-w-lg mx-auto">
-                <h3 class="font-serif-elegant text-3xl mb-4 gold-accent uppercase tracking-wider">Celebración Civil</h3>
-                <p class="font-bold text-[12px] tracking-widest uppercase mb-2">Salón Los Abuelitos</p>
-                <p class="text-sm mb-8 leading-relaxed">
-                    Sábado 11 de Abril, 2026 • 17:45 hrs<br>
-                    13 av. 16-32 zona 7 de Mixco<br>
-                    Colonia San Ignacio
-                </p>
+            <div class="pt-2">
+                <button id="btn-reset" class="w-full py-2 border border-red-200 hover:bg-red-50 text-red-600 rounded-lg transition-colors font-medium">
+                    Restaurar Todo de Fábrica
+                </button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer class="py-16 bg-white text-center border-t border-gray-100">
-        <p class="font-serif-elegant tracking-[0.3em] gold-accent text-2xl">J <span class="font-ampersand">&</span> G</p>
-        <p class="text-[10px] uppercase tracking-widest opacity-40 mt-4">Guatemala • 2026</p>
-    </footer>
+    <!-- PRESENTACIÓN PRINCIPAL (CONTAINER) -->
+    <div class="max-w-4xl mx-auto px-4 py-12 md:py-20 relative z-10 flex flex-col items-center">
+        
+        <!-- Tarjeta Decorativa de la Invitación (Con Bordes Orgánicos de Lirios y Hojas) -->
+        <div class="w-full bg-white/90 backdrop-blur-md rounded-[2.5rem] p-8 md:p-16 shadow-2xl text-center relative overflow-hidden border border-purple-100 lily-float">
+            
+            <!-- MARCOS ORNAMENTALES DE LIRIOS Y HOJAS (SVGs diseñados meticulosamente) -->
+            <!-- Esquina Superior Izquierda -->
+            <div class="absolute top-0 left-0 w-36 h-36 md:w-48 md:h-48 text-purple-400 opacity-80 pointer-events-none z-10">
+                <svg viewBox="0 0 200 200" class="w-full h-full fill-none stroke-current" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Tallo Principal de la flor -->
+                    <path d="M 0,100 C 60,100 100,60 100,0" class="stroke-purple-300" stroke-width="2" />
+                    <path d="M 0,150 C 90,150 150,90 150,0" class="stroke-purple-400" />
+                    <!-- Lirio Estilizado Esquina -->
+                    <path d="M 100,0 C 95,20 80,45 60,35 C 50,30 50,15 70,10 C 85,5 95,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 110,25 125,45 145,30 C 155,20 150,5 130,10 C 115,15 105,0 100,0 Z" class="fill-purple-200/40" />
+                    <!-- Pétalo Central del Lirio -->
+                    <path d="M 100,0 C 95,30 100,60 102,60 C 105,60 110,30 100,0 Z" class="fill-purple-300" />
+                    <!-- Hojas y Ramas de Enredadera -->
+                    <path d="M 50,50 C 35,65 15,65 5,80" />
+                    <path d="M 120,40 C 135,55 135,80 150,90" />
+                    <!-- Pequeños Capullos -->
+                    <circle cx="5" cy="80" r="3" class="fill-purple-400" />
+                    <circle cx="150" cy="90" r="3.5" class="fill-purple-500" />
+                    <!-- Detalle de Pétalos Flotantes de la esquina -->
+                    <path d="M 160,30 C 170,30 175,20 170,15 C 165,10 160,20 160,30 Z" class="fill-purple-300" />
+                </svg>
+            </div>
+
+            <!-- Esquina Superior Derecha -->
+            <div class="absolute top-0 right-0 w-36 h-36 md:w-48 md:h-48 text-purple-400 opacity-80 pointer-events-none z-10 transform scale-x-[-1]">
+                <svg viewBox="0 0 200 200" class="w-full h-full fill-none stroke-current" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 0,100 C 60,100 100,60 100,0" class="stroke-purple-300" stroke-width="2" />
+                    <path d="M 0,150 C 90,150 150,90 150,0" class="stroke-purple-400" />
+                    <path d="M 100,0 C 95,20 80,45 60,35 C 50,30 50,15 70,10 C 85,5 95,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 110,25 125,45 145,30 C 155,20 150,5 130,10 C 115,15 105,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 95,30 100,60 102,60 C 105,60 110,30 100,0 Z" class="fill-purple-300" />
+                    <path d="M 50,50 C 35,65 15,65 5,80" />
+                    <path d="M 120,40 C 135,55 135,80 150,90" />
+                    <circle cx="5" cy="80" r="3" class="fill-purple-400" />
+                    <circle cx="150" cy="90" r="3.5" class="fill-purple-500" />
+                </svg>
+            </div>
+
+            <!-- Esquina Inferior Izquierda -->
+            <div class="absolute bottom-0 left-0 w-36 h-36 md:w-48 md:h-48 text-purple-400 opacity-80 pointer-events-none z-10 transform scale-y-[-1]">
+                <svg viewBox="0 0 200 200" class="w-full h-full fill-none stroke-current" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 0,100 C 60,100 100,60 100,0" class="stroke-purple-300" stroke-width="2" />
+                    <path d="M 0,150 C 90,150 150,90 150,0" class="stroke-purple-400" />
+                    <path d="M 100,0 C 95,20 80,45 60,35 C 50,30 50,15 70,10 C 85,5 95,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 110,25 125,45 145,30 C 155,20 150,5 130,10 C 115,15 105,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 95,30 100,60 102,60 C 105,60 110,30 100,0 Z" class="fill-purple-300" />
+                    <path d="M 50,50 C 35,65 15,65 5,80" />
+                    <path d="M 120,40 C 135,55 135,80 150,90" />
+                    <circle cx="5" cy="80" r="3" class="fill-purple-400" />
+                    <circle cx="150" cy="90" r="3.5" class="fill-purple-500" />
+                </svg>
+            </div>
+
+            <!-- Esquina Inferior Derecha -->
+            <div class="absolute bottom-0 right-0 w-36 h-36 md:w-48 md:h-48 text-purple-400 opacity-80 pointer-events-none z-10 transform scale-x-[-1] scale-y-[-1]">
+                <svg viewBox="0 0 200 200" class="w-full h-full fill-none stroke-current" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 0,100 C 60,100 100,60 100,0" class="stroke-purple-300" stroke-width="2" />
+                    <path d="M 0,150 C 90,150 150,90 150,0" class="stroke-purple-400" />
+                    <path d="M 100,0 C 95,20 80,45 60,35 C 50,30 50,15 70,10 C 85,5 95,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 110,25 125,45 145,30 C 155,20 150,5 130,10 C 115,15 105,0 100,0 Z" class="fill-purple-200/40" />
+                    <path d="M 100,0 C 95,30 100,60 102,60 C 105,60 110,30 100,0 Z" class="fill-purple-300" />
+                    <path d="M 50,50 C 35,65 15,65 5,80" />
+                    <path d="M 120,40 C 135,55 135,80 150,90" />
+                    <circle cx="5" cy="80" r="3" class="fill-purple-400" />
+                    <circle cx="150" cy="90" r="3.5" class="fill-purple-500" />
+                </svg>
+            </div>
+
+            <!-- Líneas de Borde con efecto de enredadera de pétalos flotantes -->
+            <div class="absolute inset-x-8 top-8 bottom-8 pointer-events-none border border-purple-200/50 rounded-[2rem] z-0"></div>
+            <div class="absolute inset-x-10 top-10 bottom-10 pointer-events-none border border-dashed border-purple-300/30 rounded-[1.8rem] z-0"></div>
+
+            <!-- Cabecera / Monograma de Lirio -->
+            <div class="mb-8 fade-in flex justify-center relative z-20">
+                <div class="w-20 h-20 rounded-full border-2 border-dashed border-purple-300 flex items-center justify-center p-1 bg-white shadow-md">
+                    <span class="text-4xl font-serif-elegant text-purple-700 font-bold" id="monogram">YD</span>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1: VERSÍCULO BÍBLICO (Eclesiastés 3:11) -->
+            <div class="mb-12 max-w-lg mx-auto fade-in relative z-20" style="animation-delay: 0.2s;">
+                <div class="inline-block text-purple-400 mb-2">
+                    <i data-lucide="quote" class="w-8 h-8 mx-auto opacity-70"></i>
+                </div>
+                <p id="disp-bible-verse" class="text-gray-600 italic text-base md:text-lg leading-relaxed font-light">
+                    "Él ha hecho todo hermoso a su tiempo; y ha puesto eternidad en el corazón de ellos, sin que alcance el hombre a entender la obra que ha hecho Dios desde el principio hasta el fin."
+                </p>
+                <p id="disp-bible-ref" class="text-purple-700 font-semibold mt-3 text-sm tracking-wider uppercase">
+                    Eclesiastés 3:11
+                </p>
+                <!-- Línea de lirios pequeños separadora -->
+                <div class="flex justify-center items-center gap-1.5 mt-6">
+                    <span class="h-[1px] w-8 bg-purple-200"></span>
+                    <i data-lucide="flower" class="w-3.5 h-3.5 text-purple-300"></i>
+                    <span class="h-[1px] w-8 bg-purple-200"></span>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: DATOS DE LOS PADRES -->
+            <div class="mb-12 fade-in relative z-20" style="animation-delay: 0.4s;">
+                <p class="text-xs uppercase tracking-widest text-purple-400 font-semibold mb-3">Con la bendición de Dios y con inmenso amor de mis padres</p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-12">
+                    <div>
+                        <span class="text-[11px] text-gray-400 block uppercase font-semibold tracking-wider">Madre</span>
+                        <p id="disp-mother" class="text-xl font-bold text-purple-950 mt-1">Silvia Sabán</p>
+                    </div>
+                    <div class="text-purple-300 font-cursive text-4xl hidden md:block">&</div>
+                    <div>
+                        <span class="text-[11px] text-gray-400 block uppercase font-semibold tracking-wider">Padre</span>
+                        <p id="disp-father" class="text-xl font-bold text-purple-950 mt-1">Mardoqueo Zapón</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-4 max-w-sm mx-auto">
+                    Tienen el honor y la inmensa alegría de invitarle a celebrar la maravillosa vida de nuestra amada hija.
+                </p>
+            </div>
+
+            <!-- SECCIÓN 3: DATOS DE LA FESTEJADA (Estilo súper legible y fino) -->
+            <div class="my-14 fade-in relative z-20" style="animation-delay: 0.6s;">
+                <span class="text-xs uppercase tracking-widest text-purple-500 font-bold block mb-2"><!-- Te Invito a Celebrar Mis --></span>
+                
+                <div class="relative py-2 max-w-xl mx-auto">
+                    <!-- Detalle de Lirio de fondo sutil -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                        <i data-lucide="flower-2" class="w-56 h-56 text-purple-900"></i>
+                    </div>
+                    
+                    <h1 id="disp-name" class="font-serif-elegant italic text-4xl md:text-6xl text-purple-950 font-bold tracking-normal py-2 leading-tight relative z-10">
+                        Yehimi Dayana Zapón Sabán
+                    </h1>
+                </div>
+
+                <p class="font-cursive text-3xl md:text-4xl text-purple-600 mt-2">Mis Quince Años</p>
+                
+                <div class="flex justify-center items-center gap-4 mt-6">
+                    <span class="h-[1px] w-12 bg-gradient-to-r from-transparent to-purple-300"></span>
+                    <span class="text-xs tracking-widest text-purple-400 uppercase font-bold">Un Día Inolvidable</span>
+                    <span class="h-[1px] w-12 bg-gradient-to-l from-transparent to-purple-300"></span>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4: DATOS DE LA RECEPCIÓN Y HORARIO -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12 pt-8 border-t border-purple-100 fade-in relative z-20" style="animation-delay: 0.8s;">
+                
+                <!-- Fecha -->
+                <div class="p-6 bg-purple-50/40 rounded-2xl border border-purple-100 flex flex-col justify-center items-center relative overflow-hidden group hover:border-purple-300 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mb-4 shadow-sm">
+                        <i data-lucide="calendar" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">¿Qué día?</span>
+                    <p id="disp-date-full" class="text-lg font-bold text-purple-950 mt-1">Sábado, 27 de Junio</p>
+                    <p id="disp-year" class="text-sm text-purple-700">Año 2026</p>
+                </div>
+
+                <!-- Hora -->
+                <div class="p-6 bg-purple-50/40 rounded-2xl border border-purple-100 flex flex-col justify-center items-center relative overflow-hidden group hover:border-purple-300 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mb-4 shadow-sm">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">¿A qué hora?</span>
+                    <p id="disp-time" class="text-lg font-bold text-purple-950 mt-1">14:45 PM</p>
+                    <p class="text-xs text-purple-700">Recepción formal</p>
+                </div>
+
+                <!-- Lugar -->
+                <div class="p-6 bg-purple-50/40 rounded-2xl border border-purple-100 flex flex-col justify-center items-center relative overflow-hidden group hover:border-purple-300 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mb-4 shadow-sm">
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">¿Dónde será?</span>
+                    <p id="disp-location" class="text-lg font-bold text-purple-950 mt-1">Finca El bosquecito</p>
+                    <span class="text-xs text-purple-700 mt-1 cursor-pointer underline flex items-center gap-1 hover:text-purple-900" onclick="window.open('https://maps.google.com')">
+                        Ver mapa <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- CUENTA REGRESIVA DINÁMICA -->
+            <div class="my-10 p-6 bg-purple-950 text-white rounded-[1.5rem] shadow-xl max-w-xl mx-auto fade-in relative z-20" style="animation-delay: 0.9s;">
+                <p class="text-xs uppercase tracking-widest text-purple-300 font-semibold mb-4">La cuenta regresiva ha comenzado</p>
+                <div class="grid grid-cols-4 gap-4 text-center">
+                    <div class="bg-purple-900/60 p-3 rounded-xl border border-purple-800/50">
+                        <span id="countdown-days" class="text-2xl md:text-3xl font-bold text-yellow-300 block">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-purple-200">Días</span>
+                    </div>
+                    <div class="bg-purple-900/60 p-3 rounded-xl border border-purple-800/50">
+                        <span id="countdown-hours" class="text-2xl md:text-3xl font-bold text-yellow-300 block">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-purple-200">Horas</span>
+                    </div>
+                    <div class="bg-purple-900/60 p-3 rounded-xl border border-purple-800/50">
+                        <span id="countdown-minutes" class="text-2xl md:text-3xl font-bold text-yellow-300 block">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-purple-200">Minutos</span>
+                    </div>
+                    <div class="bg-purple-900/60 p-3 rounded-xl border border-purple-800/50">
+                        <span id="countdown-seconds" class="text-2xl md:text-3xl font-bold text-yellow-300 block">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-purple-200">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5: AGRADECIMIENTO -->
+            <div class="mt-14 max-w-2xl mx-auto fade-in relative z-20" style="animation-delay: 1s;">
+                <div class="w-20 h-[1px] bg-purple-200 mx-auto mb-6"></div>
+                <p class="text-xs uppercase tracking-widest text-purple-500 font-semibold mb-4">Agradecimiento Especial</p>
+                <p id="disp-thanks" class="text-gray-600 leading-relaxed text-sm md:text-base font-light italic">
+                    Hoy celebro la maravillosa gracia de Dios que me ha guiado hasta este día tan especial. Agradezco de todo corazón a mis queridos padres por su inmenso amor, apoyo y entrega, y a todos ustedes, familia y amigos, por ser parte de mi vida y acompañarme en este camino. Su presencia es el mejor regalo.
+                </p>
+                <p class="font-cursive text-4xl text-purple-700 mt-6 font-semibold" id="disp-signature">Yehimi Dayana</p>
+            </div>
+
+            <!-- SECCIÓN 6: CONFIRMACIÓN VÍA WHATSAPP (Totalmente rediseñada) -->
+            <div class="mt-16 p-8 md:p-10 bg-purple-100/30 rounded-[2rem] border-2 border-dashed border-purple-300/60 max-w-xl mx-auto text-center fade-in relative z-20" style="animation-delay: 1.1s;">
+                <div class="w-14 h-14 bg-purple-200/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="calendar-heart" class="w-7 h-7 text-purple-700"></i>
+                </div>
+                <h3 class="font-serif-elegant text-2xl font-bold text-purple-950 mb-2">Confirmar Asistencia</h3>
+                <p class="text-sm text-gray-600 mb-6 max-w-md mx-auto">
+                    Agradecemos enormemente que confirmes tu presencia lo antes posible para preparar cada detalle. Presiona el botón de abajo para enviar tu confirmación directamente a nuestro WhatsApp.
+                </p>
+                
+                <!-- Botón WhatsApp -->
+                <a id="btn-whatsapp-confirm" href="#" target="_blank" class="btn-pulse inline-flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all text-base md:text-lg tracking-wide">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    <span>Confirmar por WhatsApp</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Footer discreto -->
+        <p class="mt-8 text-center text-xs text-purple-600/70 font-light">
+            Hecho con amor para Yehimi Dayana Zapón Sabán &copy; 2026. Todos los derechos reservados.
+        </p>
+
+    </div>
 
     <script>
-        const audio = document.getElementById('wedding-music');
-        const control = document.getElementById('music-control');
-        const icon = document.getElementById('music-icon');
-        let isTransitioning = false;
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
 
-        async function toggleMusic() {
-            if (isTransitioning) return;
-            isTransitioning = true;
+        // 1. EFECTO DE PÉTALOS EN CANVAS (Lila cayendo suavemente)
+        const canvas = document.getElementById('petals-canvas');
+        const ctx = canvas.getContext('2d');
 
-            try {
-                if (audio.paused) {
-                    await audio.play();
-                    control.classList.add('music-playing');
-                    icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-                } else {
-                    audio.pause();
-                    control.classList.remove('music-playing');
-                    icon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const petalsArray = [];
+        const maxPetals = 45;
+
+        class Petal {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 11 + 5;
+                this.speed = Math.random() * 1.2 + 0.6;
+                this.angle = Math.random() * 360;
+                this.spinSpeed = Math.random() * 1.6 - 0.8;
+                this.color = `hsla(${265 + Math.random() * 35}, 75%, 82%, ${Math.random() * 0.45 + 0.35})`;
+            }
+
+            update() {
+                this.y += this.speed;
+                this.x += Math.sin(this.angle * Math.PI / 180) * 0.4;
+                this.angle += this.spinSpeed;
+
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
                 }
-            } catch (err) {
-                console.error("Fallo en reproducción:", err);
-            } finally {
-                setTimeout(() => { isTransitioning = false; }, 200);
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                
+                // Dibujo de pétalo redondeado
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(this.size, -this.size / 2, this.size, 0);
+                ctx.quadraticCurveTo(this.size / 2, this.size, 0, 0);
+                ctx.fill();
+                
+                ctx.restore();
             }
         }
 
-        const preloadAudio = () => {
-            audio.load();
-            window.removeEventListener('touchstart', preloadAudio);
-            window.removeEventListener('mousemove', preloadAudio);
+        // Instanciar los pétalos
+        for (let i = 0; i < maxPetals; i++) {
+            petalsArray.push(new Petal());
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petalsArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animatePetals);
+        }
+        animatePetals();
+
+        // 2. REPRODUCTOR DE MÚSICA CON INTERACTIVIDAD
+        const music = document.getElementById('bg-music');
+        const btnMusic = document.getElementById('btn-music');
+        const iconPlay = document.getElementById('icon-play');
+        const iconPause = document.getElementById('icon-pause');
+        const audioSource = document.getElementById('audio-source');
+
+        btnMusic.addEventListener('click', () => {
+            if (music.paused) {
+                music.play().then(() => {
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                }).catch(e => console.log("La interacción del navegador requiere acción directa del usuario para sonar."));
+            } else {
+                music.pause();
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+            }
+        });
+
+        // 3. EDITOR EN VIVO: Sincronización dinámica de campos
+        //const panel = document.getElementById('editor-panel');
+        //const btnOpen = document.getElementById('btn-toggle-editor');
+        //const btnClose = document.getElementById('btn-close-editor');
+
+        //btnOpen.addEventListener('click', () => panel.classList.remove('-translate-x-full'));
+        //btnClose.addEventListener('click', () => panel.classList.add('-translate-x-full'));
+
+        // Elementos en pantalla
+        const elName = document.getElementById('disp-name');
+        const elMother = document.getElementById('disp-mother');
+        const elFather = document.getElementById('disp-father');
+        const elBibleVerse = document.getElementById('disp-bible-verse');
+        const elBibleRef = document.getElementById('disp-bible-ref');
+        const elDateFull = document.getElementById('disp-date-full');
+        const elYear = document.getElementById('disp-year');
+        const elTime = document.getElementById('disp-time');
+        const elLocation = document.getElementById('disp-location');
+        const elThanks = document.getElementById('disp-thanks');
+        const elSignature = document.getElementById('disp-signature');
+        const elMonogram = document.getElementById('monogram');
+        const btnWhatsappConfirm = document.getElementById('btn-whatsapp-confirm');
+
+        // Valores originales por defecto
+        const defaults = {
+            name: "Yehimi Dayana Zapón Sabán",
+            mother: "Silvia Sabán",
+            father: "Mardoqueo Zapón",
+            bibleVerse: `"Él ha hecho todo hermoso a su tiempo; y ha puesto eternidad en el corazón de ellos, sin que alcance el hombre a entender la obra que ha hecho Dios desde el principio hasta el fin."`,
+            bibleRef: "Eclesiastés 3:11",
+            date: "2026-06-27",
+            time: "14:45",
+            location: "Finca El bosquecito",
+            audioUrl: "cancionn1.mp3",
+            whatsappPhone: "50252712464",
+            whatsappMsg: "¡Hola! Deseo confirmar mi asistencia a los hermosos quince años de Yehimi Dayana el próximo 27 de junio de 2026. ¡Allí estaremos con mucha alegría!",
+            thanks: "Hoy celebro la maravillosa gracia de Dios que me ha guiado hasta este día tan especial. Agradezco de todo corazón a mis queridos padres por su inmenso amor, apoyo y entrega, y a todos ustedes, familia y amigos, por ser parte de mi vida y acompañarme en este camino. Su presencia es el mejor regalo."
         };
-        window.addEventListener('touchstart', preloadAudio);
-        window.addEventListener('mousemove', preloadAudio);
+
+        // Inputs de edición
+        const inName = document.getElementById('edit-name');
+        const inMother = document.getElementById('edit-mother');
+        const inFather = document.getElementById('edit-father');
+        const inBibleVerse = document.getElementById('edit-bible-verse');
+        const inBibleRef = document.getElementById('edit-bible-ref');
+        const inDate = document.getElementById('edit-date');
+        const inTime = document.getElementById('edit-time');
+        const inLocation = document.getElementById('edit-location');
+        const inAudioUrl = document.getElementById('edit-audio-url');
+        const inWhatsappPhone = document.getElementById('edit-whatsapp-phone');
+        const inWhatsappMsg = document.getElementById('edit-whatsapp-msg');
+        const inThanks = document.getElementById('edit-thanks');
+        const btnReset = document.getElementById('btn-reset');
+
+        // Fecha de evento para contador
+        let targetEventDate = new Date("2026-06-27T14:45:00");
+
+        function updateInvitation() {
+            // Nombre y firma
+            const name = inName.value.trim() || "Festejada";
+            elName.textContent = name;
+            elSignature.textContent = name.split(" ")[0] + " " + (name.split(" ")[1] || "");
+            
+            // Iniciales del monograma
+            const initials = name.split(" ").filter(n => n.length > 0).slice(0, 2).map(n => n[0].toUpperCase()).join("");
+            elMonogram.textContent = initials || "YD";
+
+            // Padres
+            elMother.textContent = inMother.value.trim() || "Madre";
+            elFather.textContent = inFather.value.trim() || "Padre";
+
+            // Biblia
+            elBibleVerse.textContent = inBibleVerse.value.trim();
+            elBibleRef.textContent = inBibleRef.value.trim();
+
+            // Ubicación
+            elLocation.textContent = inLocation.value.trim() || "Finca El bosquecito";
+
+            // Mensaje de agradecimiento
+            elThanks.textContent = inThanks.value.trim();
+
+            // Sincronizar link de WhatsApp
+            const phone = inWhatsappPhone.value.trim().replace(/[^0-9]/g, ""); // solo números
+            const textMsg = encodeURIComponent(inWhatsappMsg.value);
+            btnWhatsappConfirm.href = `https://api.whatsapp.com/send?phone=${phone}&text=${textMsg}`;
+
+            // Manejar cambio dinámico de Audio
+            const newAudioUrl = inAudioUrl.value.trim();
+            if(newAudioUrl && audioSource.src !== newAudioUrl) {
+                const wasPlaying = !music.paused;
+                audioSource.src = newAudioUrl;
+                music.load();
+                if(wasPlaying) {
+                    music.play().catch(e => console.log("La interacción del navegador bloqueó la autorreproducción tras el cambio de pista."));
+                }
+            }
+
+            // Fecha y hora
+            const rawDate = inDate.value;
+            const rawTime = inTime.value;
+
+            if(rawDate && rawTime) {
+                targetEventDate = new Date(`${rawDate}T${rawTime}:00`);
+                
+                // Formatear fecha: "Sábado, 27 de Junio"
+                const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+                const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                
+                const parsedDate = new Date(`${rawDate}T00:00:00`);
+                const dayName = daysOfWeek[parsedDate.getDay()];
+                const dayNum = parsedDate.getDate();
+                const monthName = months[parsedDate.getMonth()];
+                const yearNum = parsedDate.getFullYear();
+
+                elDateFull.textContent = `${dayName}, ${dayNum} de ${monthName}`;
+                elYear.textContent = `Año ${yearNum}`;
+                
+                // Formatear hora 24h a 12h con AM/PM
+                const [h, m] = rawTime.split(":");
+                let hourNum = parseInt(h);
+                const ampm = hourNum >= 12 ? 'PM' : 'AM';
+                hourNum = hourNum % 12;
+                hourNum = hourNum ? hourNum : 12;
+                elTime.textContent = `${hourNum.toString().padStart(2, '0')}:${m} ${ampm}`;
+            }
+        }
+
+        // Escuchar cambios de todos los inputs en tiempo real
+        const allInputs = [inName, inMother, inFather, inBibleVerse, inBibleRef, inDate, inTime, inLocation, inAudioUrl, inWhatsappPhone, inWhatsappMsg, inThanks];
+        allInputs.forEach(input => {
+            input.addEventListener('input', updateInvitation);
+        });
+
+        // Restaurar valores por defecto
+        btnReset.addEventListener('click', () => {
+            inName.value = defaults.name;
+            inMother.value = defaults.mother;
+            inFather.value = defaults.father;
+            inBibleVerse.value = defaults.bibleVerse;
+            inBibleRef.value = defaults.bibleRef;
+            inDate.value = defaults.date;
+            inTime.value = defaults.time;
+            inLocation.value = defaults.location;
+            inAudioUrl.value = defaults.audioUrl;
+            inWhatsappPhone.value = defaults.whatsappPhone;
+            inWhatsappMsg.value = defaults.whatsappMsg;
+            inThanks.value = defaults.thanks;
+            updateInvitation();
+        });
+
+        // Primera carga de inicialización
+        updateInvitation();
+
+
+        // 4. CONTADOR / CUENTA REGRESIVA EN TIEMPO REAL
+        const timerDays = document.getElementById('countdown-days');
+        const timerHours = document.getElementById('countdown-hours');
+        const timerMinutes = document.getElementById('countdown-minutes');
+        const timerSeconds = document.getElementById('countdown-seconds');
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = targetEventDate - now;
+
+            if (difference <= 0) {
+                timerDays.textContent = "00";
+                timerHours.textContent = "00";
+                timerMinutes.textContent = "00";
+                timerSeconds.textContent = "00";
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            timerDays.textContent = d.toString().padStart(2, '0');
+            timerHours.textContent = h.toString().padStart(2, '0');
+            timerMinutes.textContent = m.toString().padStart(2, '0');
+            timerSeconds.textContent = s.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
     </script>
 </body>
 </html>
